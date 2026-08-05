@@ -400,7 +400,7 @@ elif menu == "👨‍💼 Data Pegawai (Master)":
             c3, c4, c5 = st.columns(3)
             jabatan = c3.text_input("Jabatan", placeholder="Guru / Staf / Ka. Unit")
             unit = c4.text_input("Unit Kerja", placeholder="SMA / SMP / Yayasan")
-            status_k = c5.selectbox("Status Kepegawaian", ["Tetap", "Kontrak", "Guru/Pengajar", "Magang", "Lainnya"])
+            status_k = c5.selectbox("Status Kepegawaian", ["Tetap", "Tidak Tetap", "Honorer", "Magang", "Lainnya"])
             
             c6, c7 = st.columns(2)
             hp = c6.text_input("No. WhatsApp", placeholder="08xxxxxxxxxx")
