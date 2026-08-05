@@ -284,6 +284,44 @@ if menu == "📊 Dashboard & Analisis":
         else:
             st.info("ℹ️ Belum ada data tempat tinggal.")
 
+    st.markdown("<br>", unsafe_allow_html=True)
+    g_col3, g_col4 = st.columns(2)
+
+    with g_col3:
+        if not df_inventaris.empty and 'kondisi' in df_inventaris and not df_inventaris['kondisi'].isnull().all():
+            inv_counts = df_inventaris['kondisi'].value_counts().reset_index()
+            inv_counts.columns = ['Kondisi', 'Jumlah']
+            fig_inv = px.bar(
+                inv_counts, x='Jumlah', y='Kondisi', orientation='h',
+                title="<b>Status Kondisi Aset Inventaris</b>",
+                color='Kondisi',
+                color_discrete_map={'Baik': '#0ea5e9', 'Rusak Ringan': '#f59e0b', 'Rusak Berat': '#ef4444'},
+                text_auto=True
+            )
+            fig_inv.update_layout(
+                paper_bgcolor='rgba(0,0,0,0)', plot_bgcolor='rgba(0,0,0,0)',
+                showlegend=False, height=320, margin=dict(l=20, r=20, t=40, b=20)
+            )
+            st.plotly_chart(fig_inv, use_container_width=True)
+        else:
+            st.info("ℹ️ Belum ada data aset inventaris.")
+
+    with g_col4:
+        if not df_maint.empty and 'status' in df_maint and not df_maint['status'].isnull().all():
+            maint_counts = df_maint['status'].value_counts().reset_index()
+            maint_counts.columns = ['Status', 'Jumlah']
+            fig_maint = px.pie(
+                maint_counts, names='Status', values='Jumlah', hole=0.4,
+                title="<b>Progress Task Maintenance</b>",
+                color_discrete_sequence=['#f59e0b', '#06b6d4', '#10b981']
+            )
+            fig_maint.update_layout(
+                paper_bgcolor='rgba(0,0,0,0)', height=320, margin=dict(l=20, r=20, t=40, b=20)
+            )
+            st.plotly_chart(fig_maint, use_container_width=True)
+        else:
+            st.info("ℹ️ Belum ada log maintenance.")
+
 # -------------------------------------------------------------
 # MENU 2: DAFTAR PEGAWAI (DENGAN CRUD)
 # -------------------------------------------------------------
